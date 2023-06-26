@@ -6,11 +6,11 @@
  */
 size_t calc_interval(size_t size)
 {
-	size_t interval = 0;
+	int interval = 0;
 
-	while (interval < size / 3)
+	while (interval < (int)size )
 	{
-		interval = interval * 3 + 1;
+		interval = (interval * 3) + 1;
 	}
 	return (interval);
 }
@@ -26,8 +26,6 @@ void shell_sort(int *array, size_t size)
 	int outer, inner;
 	int temp;
 	/* walk through the intervals */
-	if (array == NULL || size < 2)
-		return;
 
 	for (interval = (interval - 1) / 3;  interval > 0; interval = (interval - 1) / 3)
 	{
