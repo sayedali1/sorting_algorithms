@@ -22,17 +22,17 @@ size_t calc_interval(size_t size)
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t interval = calc_interval(size);
-	size_t outer, inner;
+	int interval = calc_interval(size);
+	int outer, inner;
 	int temp;
 	/* walk through the intervals */
 	if (array == NULL || size < 2)
 		return;
 
-	while (interval > 0)
+	for (interval = (interval - 1) / 3;  interval > 0; interval = (interval - 1) / 3)
 	{
 		/* walk through the array */
-		for (outer = interval; outer < size; outer++)
+		for (outer = interval; outer < (int)size; outer++)
 		{
 
 			temp = array[outer];
@@ -45,7 +45,5 @@ void shell_sort(int *array, size_t size)
 			array[inner] = temp;
 		}
 		print_array(array, size);
-		/* calc the intervals for next step */
-		interval = calc_interval(interval);
 	}
 }
