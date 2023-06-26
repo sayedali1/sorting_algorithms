@@ -26,6 +26,9 @@ void shell_sort(int *array, size_t size)
 	size_t outer, inner;
 	int temp;
 	/* walk through the intervals */
+	if (array == NULL || size < 2)
+		return;
+
 	while (interval > 0)
 	{
 		/* walk through the array */
