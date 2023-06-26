@@ -34,8 +34,8 @@ void shell_sort(int *array, size_t size)
 
 			temp = array[outer];
 			/* check to swap through the two element across the gap */
-			for (inner = outer; inner > interval - 1 &&
-			array[inner - interval] >= temp; inner = inner - interval)
+			for (inner = outer; inner >= interval &&
+			array[inner - interval] > temp; inner = inner - interval)
 			{
 				array[inner] = array[inner - interval];
 			}
