@@ -28,7 +28,7 @@ int *create_array_zeros(size_t k)
 	int *count;
 	size_t i;
 
-	count = malloc(sizeof(int) * (k + 1));
+	count = malloc(sizeof(size_t) * (k + 1));
 	if (count == NULL)
 	{
 		free(count);
@@ -49,6 +49,9 @@ void counting_sort(int *array, size_t size)
 	size_t k, i, j;
 	int m;
 	int *count, *output;
+
+	if (size < 2 || !array)
+		return;
 	/* get the k */
 	k = max_num(array, size);
 	/* create array and fill it with zeros */
@@ -63,7 +66,7 @@ void counting_sort(int *array, size_t size)
 	for (i = 1; i < k + 1; i++)
 		count[i] += count[i - 1];
 	print_array(count, k + 1);
-	output = create_array_zeros(size);
+	output = malloc(sizeof(int) * size);
 
 	for (m = size - 1; m >= 0; m--)
 	{
@@ -73,4 +76,6 @@ void counting_sort(int *array, size_t size)
 	}
 	for (i = 0; i < size; i++)
 		array[i] = output[i];
+	free(output);
+	free(count);
 }
