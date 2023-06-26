@@ -10,7 +10,7 @@ int max_num(int *array, size_t size)
 	int max = array[0];
 	size_t i;
 
-	for (i = 1; i < size - 1; i++)
+	for (i = 1; i < size; i++)
 	{
 		if (max < array[i])
 			max = array[i];
