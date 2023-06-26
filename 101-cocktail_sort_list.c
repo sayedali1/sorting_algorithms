@@ -1,61 +1,63 @@
 #include "sort.h"
 /**
- * swap_nodes - fun that swap two nodes of a linked list
- * @h:pointer to the head of the list
- * @n1: the first node
- * @n2: the sec node
+ * swapme - swap the nodes themselves.
+ * @current: pointer.
+ * @current_old: pointer.
+ * @list: doubly linked list
  */
-void swap_nodes(listint_t **h, listint_t **n1, listint_t *n2)
+void swap_nodes(listint_t **list, listint_t *current, listint_t *current_old)
 {
-	(*n1)->next = n2->next;
-	if (n2->next != NULL)
-		n2->next->prev = *n1;
-	n2->prev = (*n1)->prev;
-	n2->next = *n1;
-	if ((*n1)->prev != NULL)
-		(*n1)->prev->next = n2;
-	else
-		*h = n2;
-	(*n1)->prev = n2;
-	*n1 = n2->prev;
+	listint_t *temp1 = current->next;
+	listint_t *temp2 = current_old->prev;
+
+	if (temp1 != NULL)
+		temp1->prev = current_old;
+	if (temp2 != NULL)
+		temp2->next = current;
+	current->prev = temp2;
+	current_old->next = temp1;
+	current->next = current_old;
+	current_old->prev = current;
+	if (*list == current_old)
+		*list = current;
+	print_list(*list);
 }
+
 /**
  * cocktail_sort_list - fun that sort num using coctail sorting algorthim
  * @list: pointer to the list we want to sort
  */
 void cocktail_sort_list(listint_t **list)
 {
-	int swap;
-	listint_t *step, *temp;
+	listint_t *step, *first = NULL, *last = NULL;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	do {
-		swap = 0;
 
-		for (step = *list; step->next != NULL; step = step->next)
+		for (step = *list; step->next != NULL;)
 		{
 			if (step->n > (step->next)->n)
 			{
-				swap_nodes(list, &step, step->next);
+				swap_nodes(list, step->next, step);
 				print_list(*list);
-				swap = 1;
+			}
+			else
+			{
+				step = step->next;
 			}
 		}
-
-		swap = 0;
-		while (step->prev != NULL)
+		last = step;
+		while (step->prev != first)
 		{
-			temp = step->prev;
-
-			if (step->n < temp->n)
+			if (step->n < (step->prev)->n)
 			{
-				swap_nodes(list, &temp, step);
+				swap_nodes(list, step, step->prev);
 				print_list(*list);
-				swap = 1;
 			}
 			else
 				step = step->prev;
 		}
-	} while (swap == 1);
+		first = step;
+	} while (first != last);
 }
