@@ -43,6 +43,6 @@ void shell_sort(int *array, size_t size)
 		}
 		print_array(array, size);
 		/* calc the intervals for next step */
-		interval = (interval - 1) / 3;
+		interval = calc_interval(interval);
 	}
 }
