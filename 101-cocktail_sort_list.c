@@ -29,7 +29,7 @@ void swap_nodes(listint_t **list, listint_t *current, listint_t *current_old)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *step = *list, *first = NULL, *last = NULL;
+	listint_t *step = (*list)->next, *first = NULL, *last = NULL;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
